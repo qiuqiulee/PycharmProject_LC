@@ -16,7 +16,7 @@ combine =[
                 [1,2,7,14],#14
                 [1,3,5,15],#15
         ]
-
+#testnew
 def bt(i,j,tp):
     if i == n+1:
         res_t = tp[:]
