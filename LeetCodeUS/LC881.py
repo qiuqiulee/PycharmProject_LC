@@ -1,4 +1,4 @@
-def numRescueBoats(people, limit):
+def numRescueBoats(people, limit) -> int:
     run = 0
     m = len(people)
     dic = {}
@@ -14,7 +14,13 @@ def numRescueBoats(people, limit):
             if dic and dic[k]:
                 numofbig = dic[k]
                 budy = limit - k
-                while dic[k]>0 and budy > 0 and numofbig > 0:
+                while k in dic and budy > 0 and numofbig > 0 :
+                    if budy == k and dic[k] % 2 == 0:
+                        run += dic[k] // 2
+                        dic.pop(k)
+                    elif budy == k and dic[k] % 2 != 0:
+                        run += dic[k] // 2 + 1
+                        dic.pop(k)
                     if dic and budy in dic:
                         dic[budy] -= 1
                         numofbig -= 1
@@ -24,14 +30,16 @@ def numRescueBoats(people, limit):
                             dic.pop(budy)
                         if dic and dic[k] ==0:
                             dic.pop(k)
-                    elif budy - 1 > 0:
+                    elif budy - 1 >= 0:
                         budy -= 1
                     else:
                         break
-                if dic and dic[k]:
+
+
+                if dic and k in dic:
                     run += dic[k]
                     dic.pop(k)
-    return runÒ
-people = [3,5,3,4]
-limit = 5
+    return run
+people = [3,1,7]
+limit = 7
 print(numRescueBoats(people,limit))
