@@ -1,12 +1,29 @@
-def longestSubarray(self, A, limit):
-    maxq, minq = [], []
-    res = i = 0
-    for j, a in enumerate(A):
-        heapq.heappush(maxq, [-a, j])
-        heapq.heappush(minq, [a, j])
-        while -maxq[0][0] - minq[0][0] > limit:
-            i = min(maxq[0][1], minq[0][1]) + 1
-            while maxq[0][1] < i: heapq.heappop(maxq)
-            while minq[0][1] < i: heapq.heappop(minq)
-        res = max(res, j - i + 1)
-    return res
+import heapq
+from collections import deque
+
+
+def longestSubarray(nums, limit):
+    min_deque, max_deque = deque(), deque()
+    l = r = 0
+    ans = 0
+    while r < len(nums):
+        while min_deque and nums[r] <= nums[min_deque[-1]]:
+            min_deque.pop()
+        while max_deque and nums[r] >= nums[max_deque[-1]]:
+            max_deque.pop()
+        min_deque.append(r)
+        max_deque.append(r)
+
+        while nums[max_deque[0]] - nums[min_deque[0]] > limit:
+            l += 1
+            if l > min_deque[0]:
+                min_deque.popleft()
+            if l > max_deque[0]:
+                max_deque.popleft()
+
+        ans = max(ans, r - l + 1)
+        r += 1
+
+    return ans
+
+print(longestSubarray([10,1,2,4,7,2],5))
