@@ -27,7 +27,7 @@ res =[]
 tp = [-1]*n
 bk(tp)
 
-
+print(res)
 ans =[]
 for x in res:
     t_as = []
