@@ -24,7 +24,7 @@
 def qs(arr,i,j):
     if i<j:
         q= partsort(arr,i,j)
-        qs(arr,i,q-1)
+        qs(arr,i,q)
         qs(arr,q+1,j)
     return arr
 
